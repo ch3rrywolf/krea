@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
+import { PropagateLoader } from 'react-spinners'
 import { useDispatch, useSelector } from 'react-redux'
 import { admin_login } from '../../store/Reducers/authReducer'
 
 const AdminLogin = () => {
   const dispatch = useDispatch()
+  const { loader } = useSelector(state => state.auth)
     const [state, setSatate] = useState({
         email: '',
         password: ''
@@ -43,9 +45,11 @@ const AdminLogin = () => {
                         focus:border-indigo-500 overflow-hidden' type="password"
                         name="password" placeholder="password" id="password" required />
                       </div>
-                      <button className="bg-blue-500 w-full hover:shadow-blue-500/50
+                      <button disabled={loader ? true : false} className="bg-blue-500 w-full hover:shadow-blue-500/50
                       hover:shadow-lg text-white rounded-md px-7 py-2 mb-3">Login</button>
-                     
+                     {
+                      loader ? <PropagateLoader /> : 'Login'
+                     }
                      
                       
                     </form>
