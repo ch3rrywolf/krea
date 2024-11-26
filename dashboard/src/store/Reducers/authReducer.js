@@ -4,12 +4,12 @@ import api from '../../api/api';
 // Async thunk
 export const admin_login = createAsyncThunk(
   'auth/admin_login',
-  async (info) => {
+  async (info, { rejectWithValue, fulfillWithValue }) => {
     try {
       const { data } = await api.post('/admin-login', info, { withCredentials: true });
-      return data; // Return the data from the API
+      return fulfillWithValue(data) // Return the data from the API
     } catch (error) {
-      throw error.response?.data || 'Something went wrong';
+      throw rejectWithValue(error.response.data)
     }
   }
 );
@@ -25,6 +25,10 @@ const authReducer = createSlice({
   },
   reducers: {
     // Add your synchronous reducers here if needed
+    messageClear: (state, _) => {
+        state.errorMessage = ""
+        state.successMessage = ""
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -45,4 +49,5 @@ const authReducer = createSlice({
   }
 });
 
+export const { messageClear } = authReducer.actions
 export default authReducer.reducer;
