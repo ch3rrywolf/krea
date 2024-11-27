@@ -7,14 +7,15 @@ export const admin_login = createAsyncThunk(
   async (info, { rejectWithValue, fulfillWithValue }) => {
     try {
       const { data } = await api.post('/admin-login', info, { withCredentials: true });
-      return fulfillWithValue(data) // Return the data from the API
+      localStorage.setItem('accessToken', data.token)
+      return fulfillWithValue(data)
     } catch (error) {
       throw rejectWithValue(error.response.data)
     }
   }
 );
 
-// Slice
+
 const authReducer = createSlice({
   name: 'auth',
   initialState: {
@@ -24,7 +25,7 @@ const authReducer = createSlice({
     userInfo: ''
   },
   reducers: {
-    // Add your synchronous reducers here if needed
+    
     messageClear: (state, _) => {
         state.errorMessage = ""
         state.successMessage = ""
