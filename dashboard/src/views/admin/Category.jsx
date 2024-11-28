@@ -75,7 +75,7 @@ const Category = () => {
                         </div>
 
                         <form>
-                    <div className='flex flex-col w-fu;; gap-1 mb-3'>
+                    <div className='flex flex-col w-full gap-1 mb-3'>
                         <label htmlFor="name">Category name</label>
                         <input className='px-4 py-2 focuse:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" id='name' name='category_name' placeholder='category name' />
                     </div>
