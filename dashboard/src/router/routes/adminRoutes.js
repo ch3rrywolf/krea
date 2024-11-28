@@ -6,41 +6,47 @@ const Archis = lazy(() => import("../../views/admin/Archis"))
 const PaymentRequest = lazy(() => import("../../views/admin/PaymentRequest"))
 const DeactiveArchis = lazy(() => import("../../views/admin/DeactiveArchis"))
 const ArchiRequest = lazy(() => import("../../views/admin/ArchiRequest"))
+const ArchiDetails = lazy(() => import("../../views/admin/ArchiDetails"))
 
 export const adminRoutes = [
     {
         path : 'admin/dashboard',
         element : <AdminDashboard />,
-        ability : 'admin'
+        role : 'admin'
     },
     {
         path : 'admin/dashboard/orders',
         element : <Orders />,
-        ability : 'admin'
+        role : 'admin'
     },
     {
         path : 'admin/dashboard/category',
         element : <Category />,
-        ability : 'admin'
+        role : 'admin'
     },
     {
         path : 'admin/dashboard/archis',
         element : <Archis />,
-        ability : 'admin'
+        role : 'admin'
     },
     {
         path : 'admin/dashboard/payment-request',
         element : <PaymentRequest />,
-        ability : 'admin'
+        role : 'admin'
     },
     {
         path : 'admin/dashboard/deactive-archis',
         element : <DeactiveArchis />,
-        ability : 'admin'
+        role : 'admin'
     },
     {
         path : 'admin/dashboard/archis-request',
         element : <ArchiRequest />,
-        ability : 'admin'
+        role : 'admin'
+    },
+    {
+        path : 'admin/dashboard/archi/details/:archiId',
+        element : <ArchiDetails />,
+        role : 'admin'
     }
 ]
