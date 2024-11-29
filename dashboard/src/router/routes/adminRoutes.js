@@ -8,6 +8,7 @@ const DeactiveArchis = lazy(() => import("../../views/admin/DeactiveArchis"))
 const ArchiRequest = lazy(() => import("../../views/admin/ArchiRequest"))
 const ArchiDetails = lazy(() => import("../../views/admin/ArchiDetails"))
 const ChatArchi = lazy(() => import("../../views/admin/ChatArchi"))
+const OrderDetails = lazy(() => import("../../views/admin/OrderDetails"))
 
 export const adminRoutes = [
     {
@@ -53,6 +54,11 @@ export const adminRoutes = [
     {
         path : 'admin/dashboard/chat-archis',
         element : <ChatArchi />,
+        role : 'admin'
+    },
+    {
+        path : 'admin/dashboard/order/details/:orderId',
+        element : <OrderDetails />,
         role : 'admin'
     }
 ]
