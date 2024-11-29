@@ -59,5 +59,62 @@ export const allNav = [
         icon: <CiChat1 />,
         role: 'admin',
         path: '/admin/dashboard/chat-archis'
+    },
+
+    {
+        id: 9,
+        title: 'Dashboard',
+        icon: <AiFillDashboard />,
+        role: 'archi',
+        path: '/archi/dashboard'
+    },
+    {
+        id: 10,
+        title: 'Add Product',
+        icon: <AiFillDashboard />,
+        role: 'archi',
+        path: '/archi/dashboard/add-product'
+    },
+    {
+        id: 11,
+        title: 'All Product',
+        icon: <AiFillDashboard />,
+        role: 'archi',
+        path: '/archi/dashboard/all-product'
+    },
+    {
+        id: 12,
+        title: 'Discount Product',
+        icon: <AiFillDashboard />,
+        role: 'archi',
+        path: '/archi/dashboard/discount-product'
+    },
+    {
+        id: 13,
+        title: 'Orders',
+        icon: <AiFillDashboard />,
+        role: 'archi',
+        path: '/archi/dashboard/orders'
+    },
+    {
+        id: 14,
+        title: 'Payments',
+        icon: <AiFillDashboard />,
+        role: 'archi',
+        path: '/archi/dashboard/payments'
+    },
+    {
+        id: 15,
+        title: 'Chat Pro',
+        icon: <AiFillDashboard />,
+        role: 'archi',
+        path: '/archi/dashboard/chat-pro'
+    },
+    {
+        id: 16,
+        title: 'Chat Support',
+        icon: <AiFillDashboard />,
+        role: 'archi',
+        path: '/archi/dashboard/chat-support'
     }
 ]
