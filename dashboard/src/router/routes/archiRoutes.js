@@ -6,6 +6,7 @@ const AddProduct = lazy(() => import("../../views/archi/AddProduct"))
 const Products = lazy(() => import("../../views/archi/Products"))
 const DiscountProducts = lazy(() => import("../../views/archi/DiscountProducts"))
 const Orders = lazy(() => import("../../views/archi/Orders"))
+const Payments = lazy(() => import("../../views/archi/Payments"))
 
 export const archiRouters = [
     {
@@ -36,6 +37,11 @@ export const archiRouters = [
     {
         path : '/archi/dashboard/orders',
         element : <Orders />,
+        ability : ['archi']
+    },
+    {
+        path : '/archi/dashboard/payments',
+        element : <Payments />,
         ability : ['archi']
     }
 ]

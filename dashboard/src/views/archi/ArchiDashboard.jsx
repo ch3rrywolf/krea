@@ -1,7 +1,6 @@
 import React from 'react'
 import { BsCurrencyDollar } from 'react-icons/bs'
 import { RiProductHuntLine } from 'react-icons/ri'
-import { FaUsers } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import Chart from 'react-apexcharts'
@@ -74,7 +73,7 @@ const ArchiDashboard = () => {
       <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-7'>
         <div className='flex justify-between items-center p-5 bg-[#283046] rounded-md gap-3'>
           <div className='flex flex-col justify-start items-start text-[#d0d2d6]'>
-            <h2 className='text-3xl font-bolf'>20 000.00 $</h2>
+            <h2 className='text-3xl font-bold'>20 000.00 $</h2>
             <span className='text-md font-medium'>Total Sales</span>
           </div>
           <div className='w-[46px] h-[47px] rounded-full bg-[#28c76f1f] flex justify-center items-center text-xl'>
@@ -84,7 +83,7 @@ const ArchiDashboard = () => {
 
         <div className='flex justify-between items-center p-5 bg-[#283046] rounded-md gap-3'>
           <div className='flex flex-col justify-start items-start text-[#d0d2d6]'>
-            <h2 className='text-3xl font-bolf'>20</h2>
+            <h2 className='text-3xl font-bold'>20</h2>
             <span className='text-md font-medium'>Products</span>
           </div>
           <div className='w-[46px] h-[47px] rounded-full bg-[#e000e81f] flex justify-center items-center text-xl'>
@@ -94,7 +93,7 @@ const ArchiDashboard = () => {
 
         <div className='flex justify-between items-center p-5 bg-[#283046] rounded-md gap-3'>
           <div className='flex flex-col justify-start items-start text-[#d0d2d6]'>
-            <h2 className='text-3xl font-bolf'>4</h2>
+            <h2 className='text-3xl font-bold'>4</h2>
             <span className='text-md font-medium'>Orders</span>
           </div>
           <div className='w-[46px] h-[47px] rounded-full bg-[#00cfe81f] flex justify-center items-center text-xl'>
@@ -104,7 +103,7 @@ const ArchiDashboard = () => {
 
         <div className='flex justify-between items-center p-5 bg-[#283046] rounded-md gap-3'>
           <div className='flex flex-col justify-start items-start text-[#d0d2d6]'>
-            <h2 className='text-3xl font-bolf'>12</h2>
+            <h2 className='text-3xl font-bold'>12</h2>
             <span className='text-md font-medium'>Pending Orders</span>
           </div>
           <div className='w-[46px] h-[47px] rounded-full bg-[#7367f01f] flex justify-center items-center text-xl'>
