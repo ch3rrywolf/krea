@@ -7,6 +7,9 @@ const Products = lazy(() => import("../../views/archi/Products"))
 const DiscountProducts = lazy(() => import("../../views/archi/DiscountProducts"))
 const Orders = lazy(() => import("../../views/archi/Orders"))
 const Payments = lazy(() => import("../../views/archi/Payments"))
+const ArchiToPro = lazy(() => import("../../views/archi/ArchiToPro"))
+const ArchiToAdmin = lazy(() => import("../../views/archi/ArchiToAdmin"))
+const Profile = lazy(() => import("../../views/archi/Profile"))
 
 export const archiRouters = [
     {
@@ -17,31 +20,66 @@ export const archiRouters = [
     {
         path : '/archi/dashboard',
         element : <ArchiDashboard />,
-        ability : ['archi']
+        role : 'archi',
+        status : 'active'
     },
     {
         path : '/archi/dashboard/add-product',
         element : <AddProduct />,
-        ability : ['archi']
+        role : 'archi',
+        status : 'active'
     },
     {
         path : '/archi/dashboard/products',
         element : <Products />,
-        ability : ['archi']
+        role : 'archi',
+        status : 'active'
     },
     {
         path : '/archi/dashboard/discount-product',
         element : <DiscountProducts />,
-        ability : ['archi']
+        role : 'archi',
+        status : 'active'
     },
     {
         path : '/archi/dashboard/orders',
         element : <Orders />,
-        ability : ['archi']
+        role: 'archi',
+        visibility: ['active', 'deactive']
+    },
+    {
+        path: '/seller/dashboard/order/details/:orderId',
+        element: <Orders />,
+        role: 'archi',
+        visibility: ['active', 'deactive']
     },
     {
         path : '/archi/dashboard/payments',
         element : <Payments />,
         ability : ['archi']
+    },
+    {
+        path: '/archi/dashboard/chat-support',
+        element: <ArchiToAdmin />,
+        role: 'archi',
+        visibility: ['active', 'deactive', 'pending']
+    },
+    {
+        path: '/archi/dashboard/chat-pro',
+        element: <ArchiToPro />,
+        role: 'archi',
+        status: 'active'
+    },
+    {
+        path: '/archi/dashboard/chat-pro/:proId',
+        element: <ArchiToPro />,
+        role: 'archi',
+        status: 'active'
+    },
+    {
+        path: '/archi/dashboard/profile',
+        element: <Profile />,
+        role: 'archi',
+        visibility: ['active', 'deactive', 'pending']
     }
 ]
