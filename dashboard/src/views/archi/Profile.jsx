@@ -1,8 +1,5 @@
 import React from 'react'
-import { BsImages } from 'react-icons/bs'
 import { FaEdit } from 'react-icons/fa'
-import { FadeLoader } from 'react-spinners'
-
 
 const Profile = () => {
    
@@ -13,22 +10,8 @@ const Profile = () => {
                     <div className='w-full p-4  bg-[#283046] rounded-md text-[#d0d2d6]'>
                         <div className='flex justify-center items-center py-3'>
                             <label htmlFor="img" className='h-[210px] w-[300px] relative p-3 cursor-pointer overflow-hidden'>
-                                    <img className='w-full h-full' src={''} alt="" />
-                                   <div className='bg-slate-600 absolute left-0 top-0 w-full h-full opacity-70 flex justify-center items-center z-20'>
-                                            <span>
-                                                <FadeLoader />
-                                            </span>
-                                        </div>
-                                    
-                                </label> : <label className='flex justify-center items-center flex-col h-[210px] w-[300px] cursor-pointer border border-dashed hover:border-indigo-500 border-[#d0d2d6] relative' htmlFor="img">
-                                    <span><BsImages /></span>
-                                    <span>Select Image</span>
-                                    <div className='bg-slate-600 absolute left-0 top-0 w-full h-full opacity-70 flex justify-center items-center z-20'>
-                                            <span>
-                                                <FadeLoader />
-                                            </span>
-                                        </div>
-                                    
+                                    <img className='w-full h-full' src="http://localhost:3000/images/admin.jpg" alt="" />
+                                                                   
                                 </label>
                             
                             <input  type="file" className='hidden' id='img' />
