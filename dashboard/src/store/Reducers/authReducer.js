@@ -15,6 +15,19 @@ export const admin_login = createAsyncThunk(
   }
 )
 
+export const archi_login = createAsyncThunk(
+  'auth/archi_login',
+  async (info, { rejectWithValue, fulfillWithValue }) => {
+    try {
+      const { data } = await api.post('/archi-login', info, { withCredentials: true });
+      localStorage.setItem('accessToken', data.token)
+      return fulfillWithValue(data)
+    } catch (error) {
+      throw rejectWithValue(error.response.data)
+    }
+  }
+)
+
 export const archi_register = createAsyncThunk(
   'auth/archi_register',
   async (info, { rejectWithValue, fulfillWithValue }) => {
@@ -58,6 +71,21 @@ const authReducer = createSlice({
         state.userInfo = payload;
       })
       .addCase(admin_login.rejected, (state, { error }) => {
+        state.loader = false;
+        state.errorMessage = error.message || 'Login failed';
+      })
+
+      .addCase(archi_login.pending, (state) => {
+        state.loader = true;
+        state.successMessage = '';
+        state.errorMessage = '';
+      })
+      .addCase(archi_login.fulfilled, (state, { payload }) => {
+        state.loader = false;
+        state.successMessage = 'Login successful';
+        state.userInfo = payload;
+      })
+      .addCase(archi_login.rejected, (state, { error }) => {
         state.loader = false;
         state.errorMessage = error.message || 'Login failed';
       })
