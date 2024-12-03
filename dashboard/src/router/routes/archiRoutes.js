@@ -11,6 +11,7 @@ const ArchiToPro = lazy(() => import("../../views/archi/ArchiToPro"))
 const ArchiToAdmin = lazy(() => import("../../views/archi/ArchiToAdmin"))
 const Profile = lazy(() => import("../../views/archi/Profile"))
 const EditProduct = lazy(() => import("../../views/archi/EditProduct"))
+const OrderDetails = lazy(() => import("../../views/archi/OrderDetails"))
 
 export const archiRouters = [
     {
@@ -55,8 +56,8 @@ export const archiRouters = [
         visibility: ['active', 'deactive']
     },
     {
-        path: '/seller/dashboard/order/details/:orderId',
-        element: <Orders />,
+        path: '/archi/dashboard/order/details/:orderId',
+        element: <OrderDetails />,
         role: 'archi',
         visibility: ['active', 'deactive']
     },
