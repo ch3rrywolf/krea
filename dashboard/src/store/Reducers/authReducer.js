@@ -18,17 +18,15 @@ export const admin_login = createAsyncThunk(
 export const archi_register = createAsyncThunk(
   'auth/archi_register',
   async (info, { rejectWithValue, fulfillWithValue }) => {
-    try {
-      console.log(info)
-      const { data } = await api.post('/archi-register', info, { withCredentials: true });
-      // localStorage.setItem('accessToken', data.token)
-      console.log(data)
-      return fulfillWithValue(data)
-    } catch (error) {
-      throw rejectWithValue(error.response.data)
-    }
+      try {
+          const { data } = await api.post('/archi-register', info, { withCredentials: true });
+          return fulfillWithValue(data);
+      } catch (error) {
+          console.error("Error during archi_register:", error);
+          return rejectWithValue(error.response?.data || { error: 'Unknown error occurred' });
+      }
   }
-)
+);
 
 
 const authReducer = createSlice({

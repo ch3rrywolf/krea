@@ -32,7 +32,7 @@ const Register = () => {
     <div className='min-w-screen min-h-screen bg-[#161d31] flex justify-center items-center'>
         <div className='w-[350px] text-[#d0d2d6] p-2'>
             <div className='bg-[#283046] p-2 rounded-md'>
-                <h2 className='text-xl mb-3'>Welcome to e-commerce </h2>
+                <h2 className='text-xl mb-3'>Welcome to Krea </h2>
                     <p className='text-sm mb-3'>Please register to your account and start your bussiness</p>
 
                     <form onSubmit={submit}>

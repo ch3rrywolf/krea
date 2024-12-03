@@ -1,4 +1,6 @@
 const adminModel = require('../models/adminModel')
+const archiModel = require('../models/archiModel')
+const archiProModel = require('../models/archiProModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { responseReturn } = require('../utiles/response')
@@ -29,6 +31,32 @@ class authControllers {
             responseReturn(res, 500, { error : error.message })
         }
     }
+
+    archi_register = async (req, res) => {
+        const { email, name, password } = req.body;
+        try {
+            const getUser = await archiModel.findOne({ email });
+            if (getUser) {
+                return responseReturn(res, 400, { error: 'Email already exists' });
+            }
+    
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const archi = await archiModel.create({
+                name,
+                email,
+                password: hashedPassword,
+                method: 'manual',
+                shopInfo: {}
+            });
+    
+            await archiProModel.create({ myId: archi._id });
+    
+            return responseReturn(res, 201, { message: 'Register success' });
+        } catch (error) {
+            console.error(error); 
+            return responseReturn(res, 500, { error: error.message });
+        }
+    };
 
     getUser = async(req,res)=>{
         const { id, role } = req;
