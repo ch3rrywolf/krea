@@ -50,8 +50,11 @@ class authControllers {
             });
     
             await archiProModel.create({ myId: archi._id });
-    
-            return responseReturn(res, 201, { message: 'Register success' });
+            const token = await createToken({ id: archi._id, role: archi.role })
+            res.cookie('accessToken', token, {
+                expires: new Date(Date.nom() + 7 * 24 * 60 * 60 * 1000)
+            })
+            return responseReturn(res, 201, {token, message: 'Register success' });
         } catch (error) {
             console.error(error); 
             return responseReturn(res, 500, { error: error.message });

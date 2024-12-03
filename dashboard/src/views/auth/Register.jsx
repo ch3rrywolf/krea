@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {AiOutlineGooglePlus} from 'react-icons/ai'
 import {FiFacebook} from 'react-icons/fi'
 import { PropagateLoader } from 'react-spinners'
+import toast from 'react-hot-toast'
 import {useDispatch, useSelector} from 'react-redux'
 import {overrideStyle} from '../../utils/utils'
-import { archi_register } from '../../store/Reducers/authReducer'
+import { archi_register, messageClear } from '../../store/Reducers/authReducer'
 
 const Register = () => {
   const dispatch = useDispatch()
-  const {loader} = useSelector(state => state.auth)
+  const {loader, successMessage, errorMessage} = useSelector(state => state.auth)
   const [state, setSatate] = useState({
     name: '',
     email: '',
@@ -26,10 +27,20 @@ const Register = () => {
     dispatch(archi_register(state))    
   }
 
-  
+  useEffect(() => {
+    if (successMessage) {
+      toast.success(successMessage)
+      dispatch(messageClear())
+    }
+    if (errorMessage) {
+      toast.success(errorMessage)
+      dispatch(messageClear())
+    }
+  }, [successMessage, errorMessage])
 
   return (
     <div className='min-w-screen min-h-screen bg-[#161d31] flex justify-center items-center'>
+       
         <div className='w-[350px] text-[#d0d2d6] p-2'>
             <div className='bg-[#283046] p-2 rounded-md'>
                 <h2 className='text-xl mb-3'>Welcome to Krea </h2>

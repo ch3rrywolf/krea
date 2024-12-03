@@ -20,6 +20,7 @@ export const archi_register = createAsyncThunk(
   async (info, { rejectWithValue, fulfillWithValue }) => {
       try {
           const { data } = await api.post('/archi-register', info, { withCredentials: true });
+          localStorage.setItem('accessToken', data.token)
           return fulfillWithValue(data);
       } catch (error) {
           console.error("Error during archi_register:", error);
@@ -59,6 +60,21 @@ const authReducer = createSlice({
       .addCase(admin_login.rejected, (state, { error }) => {
         state.loader = false;
         state.errorMessage = error.message || 'Login failed';
+      })
+
+      .addCase(archi_register.pending, (state) => {
+        state.loader = true;
+        state.successMessage = '';
+        state.errorMessage = '';
+      })
+      .addCase(archi_register.fulfilled, (state, { payload }) => {
+        state.loader = false;
+        state.successMessage = 'Register successful';
+        state.userInfo = payload;
+      })
+      .addCase(archi_register.rejected, (state, { error }) => {
+        state.loader = false;
+        state.errorMessage = error.message || 'Register failed';
       });
   }
 });
