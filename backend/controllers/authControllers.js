@@ -95,10 +95,11 @@ class authControllers {
                 const user = await adminModel.findById(id)
                 responseReturn(res, 200, { userInfo: user })
             } else {
-                console.log('Archi info')
+                const archi = await archiModel.findById(id)
+                responseReturn(res, 200, { userInfo: archi })
             }
         } catch (error) {
-            console.log(error.message)
+            return responseReturn(res, 500, { error: error.message });
         }
     }
 }
