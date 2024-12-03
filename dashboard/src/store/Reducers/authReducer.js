@@ -13,7 +13,22 @@ export const admin_login = createAsyncThunk(
       throw rejectWithValue(error.response.data)
     }
   }
-);
+)
+
+export const archi_register = createAsyncThunk(
+  'auth/archi_register',
+  async (info, { rejectWithValue, fulfillWithValue }) => {
+    try {
+      console.log(info)
+      const { data } = await api.post('/archi-register', info, { withCredentials: true });
+      // localStorage.setItem('accessToken', data.token)
+      console.log(data)
+      return fulfillWithValue(data)
+    } catch (error) {
+      throw rejectWithValue(error.response.data)
+    }
+  }
+)
 
 
 const authReducer = createSlice({

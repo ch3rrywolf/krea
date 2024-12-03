@@ -67,11 +67,11 @@ const AdminLogin = () => {
                         name="password" placeholder="password" id="password" required />
                       </div>
                       <button disabled={loader ? true : false} className="bg-blue-500 w-full hover:shadow-blue-500/50
-                      hover:shadow-lg text-white rounded-md px-7 py-2 mb-3">Login</button>
+                      hover:shadow-lg text-white rounded-md px-7 py-2 mb-3">
                      {
                       loader ? <PropagateLoader color='#fff' cssOverride={overrideStyle} /> : 'Login'
                      }
-                     
+                     </button>
                       
                     </form>
             </div>

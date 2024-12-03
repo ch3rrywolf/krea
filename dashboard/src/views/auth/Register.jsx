@@ -2,8 +2,14 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {AiOutlineGooglePlus} from 'react-icons/ai'
 import {FiFacebook} from 'react-icons/fi'
+import { PropagateLoader } from 'react-spinners'
+import {useDispatch, useSelector} from 'react-redux'
+import {overrideStyle} from '../../utils/utils'
+import { archi_register } from '../../store/Reducers/authReducer'
 
 const Register = () => {
+  const dispatch = useDispatch()
+  const {loader} = useSelector(state => state.auth)
   const [state, setSatate] = useState({
     name: '',
     email: '',
@@ -17,8 +23,10 @@ const Register = () => {
   }
   const submit = (e) => {
     e.preventDefault()
-    console.log(state)
+    dispatch(archi_register(state))    
   }
+
+  
 
   return (
     <div className='min-w-screen min-h-screen bg-[#161d31] flex justify-center items-center'>
@@ -55,9 +63,12 @@ const Register = () => {
                         name="checkbox" id="checkbox" required />
                         <label htmlFor="checkbox">I agree to privacy policy & terms</label>
                       </div>
-                      <button className="bg-blue-500 w-full hover:shadow-blue-500/50
-                      hover:shadow-lg text-white rounded-md px-7 py-2 mb-3">Sign Up
-                      </button>
+                      <button disabled={loader ? true : false} className="bg-blue-500 w-full hover:shadow-blue-500/20
+                      hover:shadow-lg text-white rounded-md px-7 py-2 mb-3">
+                     {
+                      loader ? <PropagateLoader color='#fff' cssOverride={overrideStyle} /> : 'Signup'
+                     }
+                     </button>
                       <div className='flex items-center mb-3 gap-3 justify-center'>
                         <p>Already have an account ? <Link to="/login">Sign-in here</Link></p>
                       </div>
