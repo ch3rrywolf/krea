@@ -1,6 +1,6 @@
 import { lazy } from "react";
 
-const Home = lazy(() => import("../../views/Home"))
+// const Home = lazy(() => import("../../views/Home"))
 const ArchiDashboard = lazy(() => import("../../views/archi/ArchiDashboard"))
 const AddProduct = lazy(() => import("../../views/archi/AddProduct"))
 const Products = lazy(() => import("../../views/archi/Products"))
@@ -14,11 +14,7 @@ const EditProduct = lazy(() => import("../../views/archi/EditProduct"))
 const OrderDetails = lazy(() => import("../../views/archi/OrderDetails"))
 
 export const archiRouters = [
-    {
-        path : '/',
-        element : <Home />,
-        ability : ['admin','archi']
-    },
+    
     {
         path : '/archi/dashboard',
         element : <ArchiDashboard />,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {AiOutlineGooglePlus} from 'react-icons/ai'
 import {FiFacebook} from 'react-icons/fi'
 import { PropagateLoader } from 'react-spinners'
@@ -9,6 +9,7 @@ import {overrideStyle} from '../../utils/utils'
 import { archi_register, messageClear } from '../../store/Reducers/authReducer'
 
 const Register = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const {loader, successMessage, errorMessage} = useSelector(state => state.auth)
   const [state, setSatate] = useState({
@@ -31,6 +32,7 @@ const Register = () => {
     if (successMessage) {
       toast.success(successMessage)
       dispatch(messageClear())
+      navigate('/')
     }
     if (errorMessage) {
       toast.success(errorMessage)
