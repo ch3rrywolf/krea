@@ -4,12 +4,43 @@ import { FaEdit, FaTrash } from 'react-icons/fa'
 import { GrClose } from 'react-icons/gr'
 import { BsImage } from 'react-icons/bs'
 import Pagination from '../Pagination'
+import { PropagateLoader } from 'react-spinners'
+import { overrideStyle } from '../../utils/utils'
+import { useSelector, useDispatch } from 'react-redux'
+import { categoryAdd } from '../../store/Reducers/categoryReducer'
 
 const Category = () => {
+    const dispatch = useDispatch()
+    const {loader} = useSelector(state=>state.category)
     const [parPage, setParPage] = useState(5)
     const [currentPage, setCurrentPage] = useState(1)
     const [searchValue, setSearchValue] = useState('')
+    const [imageShow, setImage] = useState('')
     const [show, setShow] = useState(false)
+
+    const [state, setState] = useState({
+      name: '',
+      image: ''
+    })
+
+    const imageHandle = (e) => {
+      let files = e.target.files
+      if (files.length > 0) {
+        setImage(URL.createObjectURL(files[0]))
+        setState({
+          ...state,
+          image: files[0]
+        })
+      }
+    }
+
+    const add_category = (e)=> {
+      e.preventDefault()
+      // console.log(state)
+      dispatch(categoryAdd(state))
+    }
+
+    
   return (
     <div className='px-2 lg:px-7 pt-5'>
       <div className='flex lg:hidden justify-between items-center mb-5 p-4 bg-[#283046] rounded-md'>
@@ -26,7 +57,7 @@ const Category = () => {
                     <option value="15">15</option>
                     <option value="25">25</option>
                 </select>
-                <input className='px-4 py-2 focuse:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" placeholder='search' />
+                <input value={state.name} onChange={(e)=>setState({...state, name : e.target.value})} className='px-4 py-2 focuse:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" placeholder='search' />
             </div>
             <div className='relative overflow-x-auto'>
           <table className='w-full text-sm text-left text-[#d0d2d6]'>
@@ -74,20 +105,29 @@ const Category = () => {
                         <div onClick={()=>setShow(false)} className='block lg:hidden cursor-pointer'><GrClose className='text-[#d0d2d6]'/></div>
                         </div>
 
-                        <form>
+                        <form onSubmit={add_category}>
                     <div className='flex flex-col w-full gap-1 mb-3'>
                         <label htmlFor="name">Category name</label>
-                        <input className='px-4 py-2 focuse:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" id='name' name='category_name' placeholder='category name' />
+                        <input className='px-4 py-2 focuse:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" id='name' name='category_name' placeholder='category name' required />
                     </div>
                     <div>
                         <label className='flex justify-center items-center flex-col h-[238px] cursor-pointer border border-dashed hover:border-indigo-500 w-full border-[#d0d2d6]' htmlFor='image'>
-                            <span><BsImage/></span>
-                            <span>select Image</span>
+                            {
+                              imageShow ? <img className='w-full h-full' src={imageShow} /> : <>
+                                <span><BsImage/></span>
+                                <span>select Image</span>
+                              </>
+                            }
                         </label>
                     </div>
-                    <input className='hidden' type="file" name='image' id='image' />
-                    <div>
-                        <button className='bg-blue-500 w-full hover:shadow-blue-500/50 hover:shadow-lg text-white rounded-md px-7 py-2 my-2'>Add Category</button>
+                    <input onChange={imageHandle} className='hidden' type="file" name='image' id='image' required />
+                    <div className='mt-4'>
+                    <button disabled={loader ? true : false} className="bg-blue-500 w-full hover:shadow-blue-500/20
+                      hover:shadow-lg text-white rounded-md px-7 py-2 mb-3">
+                     {
+                      loader ? <PropagateLoader color='#fff' cssOverride={overrideStyle} /> : 'Add Category'
+                     }
+                     </button>
                     </div>
                 </form>
                 </div>
