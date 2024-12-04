@@ -50,7 +50,7 @@ export const get_user_info = createAsyncThunk(
   'auth/get_user_info',
   async (_, { rejectWithValue, fulfillWithValue }) => {
       try {
-          const { data } = await api.post('/get-user', { withCredentials: true });
+          const { data } = await api.get('/get-user', { withCredentials: true });
           return fulfillWithValue(data);
       } catch (error) {
           console.error("Error during archi_register:", error);

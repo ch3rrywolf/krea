@@ -87,7 +87,7 @@ class authControllers {
         }
     };
 
-    getUser = async(req,res)=>{
+    getUser = async (req, res) => {
         const { id, role } = req;
 
         try {
@@ -99,7 +99,7 @@ class authControllers {
                 responseReturn(res, 200, { userInfo: archi })
             }
         } catch (error) {
-            return responseReturn(res, 500, { error: error.message });
+            responseReturn(res, 500, { error: 'Internal server error' })
         }
     }
 }
