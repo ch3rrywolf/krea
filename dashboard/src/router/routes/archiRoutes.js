@@ -12,9 +12,21 @@ const ArchiToAdmin = lazy(() => import("../../views/archi/ArchiToAdmin"))
 const Profile = lazy(() => import("../../views/archi/Profile"))
 const EditProduct = lazy(() => import("../../views/archi/EditProduct"))
 const OrderDetails = lazy(() => import("../../views/archi/OrderDetails"))
+const Pending = lazy(() => import("../../views/Pending"))
+const Deactive = lazy(() => import("../../views/Deactive"))
 
 export const archiRouters = [
-    
+    {
+        path: '/archi/account-pending',
+        element: <Pending />,
+        ability: 'archi'
+    },
+    {
+        path: '/archi/account-deactive',
+        element: <Deactive />,
+        ability: 'archi'
+    },
+
     {
         path : '/archi/dashboard',
         element : <ArchiDashboard />,
