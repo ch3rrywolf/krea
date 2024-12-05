@@ -1,31 +1,21 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import {BsImages} from 'react-icons/bs'
 import {IoCloseSharp} from 'react-icons/io5'
-
+import { useSelector, useDispatch} from 'react-redux'
+import { get_category } from '../../store/Reducers/categoryReducer'
+import { add_product } from '../../store/Reducers/productReducer'
 const AddProduct = () => {
-    const categorys = [
-        {
-            id: 1,
-            name: 'Sports'
-        },
-        {
-            id: 2,
-            name: 'Mobile'
-        },
-        {
-            id: 3,
-            name: 'Jarcy'
-        },
-        {
-            id: 4,
-            name: 'Pant'
-        },
-        {
-            id: 5,
-            name: 'Watch'
-        }
-    ]
+    const dispatch = useDispatch()
+    const { categorys } = useSelector(state => state.category)
+
+    useEffect(() => {
+        dispatch(get_category({
+            searchValue: '',
+            parPage: '',
+            page: ""
+        }))
+    }, [])
 
     const [state, setState] = useState({
         name : "",
@@ -44,7 +34,7 @@ const AddProduct = () => {
 
     const [cateShow, setCateShow] = useState(false)
     const [category, setCategory] = useState('')
-    const [allCategory, setAllCategory] = useState(categorys)
+    const [allCategory, setAllCategory] = useState([])
     const [searchValue, setSearchValue] = useState('')
 
     const categorySearch = (e) => {
@@ -93,6 +83,23 @@ const AddProduct = () => {
         setImages(filterImage)
         setImageShow(filterImageUrl)
     }
+
+    useEffect(() => {
+        setAllCategory(categorys)
+    }, [categorys])
+
+    const add = (e) => {
+        e.preventDefault()
+        const formData = new FormData()
+        formData.append('name',state.name)
+        formData.append('description',state.description)
+        formData.append('price',state.price)
+        formData.append('stock',state.stock)
+        formData.append('discount',state.discount)
+        formData.append('brand',state.brand)
+        formData.append('images',images)
+        dispatch(add_product(formData))
+    }
   return (
     <div className='px-2 lg:px-7 pt-5'>
         <div className='w-full p-4 bg-[#283046] rounded-md mb-4'>
@@ -101,7 +108,7 @@ const AddProduct = () => {
                 <Link className='bg-blue-500 hover:shadow-blue-500/50 hover:shadow-lg text-white rounded-sm px-7 py-2 my-2' to='/archi/dashboard/products'>Products</Link>
             </div>
             <div>
-                <form>
+                <form onSubmit={add}>
                     <div className='flex flex-col mb-3 md:flex-row gap-4 w-full text-[#d0d2d6]'>
                         <div className='flex flex-col w-full gap-1'>
                             <label htmlFor='name'>Product name</label>
