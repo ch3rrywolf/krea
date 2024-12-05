@@ -4,14 +4,19 @@ export const categoryAdd = createAsyncThunk(
     'category/categoryAdd',
     async ({ name, image }, { rejectWithValue, fulfillWithValue }) => {
         try {
+            if (!name || typeof name !== 'string' || name.trim() === '') {
+                return rejectWithValue({ error: 'Invalid category name' })
+            }
+
             const formData = new FormData()
             formData.append('name', name)
             formData.append('image', image)
+
             const { data } = await api.post('/category-add', formData, { withCredentials: true })
             console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
-            return rejectWithValue(error.response.data)
+            return rejectWithValue(error.response?.data || { error: 'Something went wrong' })
         }
     }
 )
