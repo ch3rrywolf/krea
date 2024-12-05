@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import { FaEdit, FaTrash } from 'react-icons/fa'
 import { GrClose } from 'react-icons/gr'
@@ -6,12 +6,14 @@ import { BsImage } from 'react-icons/bs'
 import Pagination from '../Pagination'
 import { PropagateLoader } from 'react-spinners'
 import { overrideStyle } from '../../utils/utils'
+import Search from '../components/Search'
+import toast from 'react-hot-toast'
 import { useSelector, useDispatch } from 'react-redux'
-import { categoryAdd } from '../../store/Reducers/categoryReducer'
+import { categoryAdd, messageClear, get_category } from '../../store/Reducers/categoryReducer'
 
 const Category = () => {
     const dispatch = useDispatch()
-    const {loader} = useSelector(state=>state.category)
+    const {loader, successMessage, errorMessage} = useSelector(state=>state.category)
     const [parPage, setParPage] = useState(5)
     const [currentPage, setCurrentPage] = useState(1)
     const [searchValue, setSearchValue] = useState('')
@@ -40,7 +42,30 @@ const Category = () => {
       dispatch(categoryAdd(state))
     }
 
-    // const loader = false;
+    useEffect(() => {
+      if (errorMessage) {
+        toast.error(errorMessage)
+        dispatch(messageClear())
+      }
+      if (successMessage) {
+        toast.error(successMessage)
+        dispatch(messageClear())
+        setState({
+          name: '',
+          image: ''
+        })
+        setImage('')
+      }
+    }, [successMessage, errorMessage])
+
+   useEffect(() => {
+    const obj = {
+      parPage: parseInt(parPage),
+      page: parseInt(currentPage),
+      searchValue
+    }
+    dispatch(get_category(obj))
+   }, [searchValue, currentPage, parPage])
   return (
     <div className='px-2 lg:px-7 pt-5'>
       <div className='flex lg:hidden justify-between items-center mb-5 p-4 bg-[#283046] rounded-md'>
@@ -50,15 +75,7 @@ const Category = () => {
         <div className='flex flex-wrap w-full'>
             <div className='w-full lg:w-7/12'>
                 <div className='w-full p-4 bg-[#283046] rounded-md'>
-                <div className='flex justify-between items-center'>
-                <select onChange={(e) => setParPage(parseInt(e.target.value))}
-                    className='px-4 py-2 focuse:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]'>
-                    <option value="5">5</option>
-                    <option value="15">15</option>
-                    <option value="25">25</option>
-                </select>
-                <input onChange={(e)=>setState({...state, name : e.target.value})} className='px-4 py-2 focuse:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" placeholder='search' />
-            </div>
+                <Search setParPage={setParPage} setSearchValue={setSearchValue} searchValue={searchValue} />
             <div className='relative overflow-x-auto'>
           <table className='w-full text-sm text-left text-[#d0d2d6]'>
             <thead className='text-sm text-[#d0d2d6] uppercase boorder-b border-slate-700'>
