@@ -13,7 +13,7 @@ import { categoryAdd, messageClear, get_category } from '../../store/Reducers/ca
 
 const Category = () => {
     const dispatch = useDispatch()
-    const {loader, successMessage, errorMessage} = useSelector(state=>state.category)
+    const {loader, successMessage, errorMessage, categorys} = useSelector(state=>state.category)
     const [parPage, setParPage] = useState(5)
     const [currentPage, setCurrentPage] = useState(1)
     const [searchValue, setSearchValue] = useState('')
@@ -89,10 +89,10 @@ const Category = () => {
             </thead>
             <tbody>
               {
-                [1, 2, 3, 4, 5].map((d, i) => <tr key={i}>
-                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{d}</td>
-                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><img className='w-[45px] h-[45px] rounded-sm' src={`http://localhost:3000/images/category/${d}.jpg`} alt="" /></td>
-                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><span>Sport</span></td>
+                categorys.map((d, i) => <tr key={i}>
+                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{i + 1}</td>
+                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><img className='w-[45px] h-[45px] rounded-sm' src={d.image} alt="" /></td>
+                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><span>{d.name}</span></td>
                 <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><div className='flex justify-start items-center gap-4'>
                 <Link className='p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50'><FaEdit /></Link>
                 <Link className='p-[6px] bg-red-500 rounded hover:shadow-lg hover:shadow-red-500/50'><FaTrash /></Link>
