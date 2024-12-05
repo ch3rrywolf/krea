@@ -1,43 +1,44 @@
 const formidable = require('formidable');
-const productModel = require('../../models/productModel')
-const cloudinary = require('cloudinary').v2
+const productModel = require('../../models/productModel');
+const cloudinary = require('cloudinary').v2;
+const { responseReturn } = require('../../utiles/response') 
 
 class productController {
     add_product = async (req, res) => {
         const { id } = req;
         const form = new formidable.IncomingForm({ multiples: true });
-    
+
         form.parse(req, async (err, field, files) => {
             if (err) {
-                return res.status(400).json({ error: 'Form parsing error' });
+                return responseReturn(res, 400, { error: 'Form parsing error' });
             }
-    
+
             let { name, category, description, stock, price, discount, shopName, brand } = field;
-    
+
             name = (name || '').toString().trim();
             category = (category || '').toString().trim();
             description = (description || '').toString().trim();
             shopName = (shopName || '').toString().trim();
             brand = (brand || '').toString().trim();
-    
+
             const slug = name.split(' ').join('-');
-    
+
             cloudinary.config({
                 cloud_name: process.env.cloud_name,
                 api_key: process.env.api_key,
                 api_secret: process.env.api_secret,
                 secure: true,
             });
-    
+
             try {
                 let allImageUrl = [];
-    
+
                 const images = Array.isArray(files.images) ? files.images : [files.images];
                 for (let i = 0; i < images.length; i++) {
                     const result = await cloudinary.uploader.upload(images[i].filepath, { folder: 'products' });
                     allImageUrl.push(result.url);
                 }
-    
+
                 const product = await productModel.create({
                     archiId: id,
                     name,
@@ -51,16 +52,13 @@ class productController {
                     images: allImageUrl,
                     brand,
                 });
-    
-                console.log(product);
-                res.status(201).json({ success: true, product });
+
+                responseReturn(res, 201, { message: 'Product added successfully' });
             } catch (error) {
-                console.error(error);
-                res.status(500).json({ error: 'Server error' });
+                responseReturn(res, 500, { error: error.message });
             }
         });
     };
-    
 }
 
 module.exports = new productController();
