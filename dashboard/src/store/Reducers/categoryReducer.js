@@ -8,6 +8,7 @@ export const categoryAdd = createAsyncThunk(
             formData.append('name', name)
             formData.append('image', image)
             const { data } = await api.post('/category-add', formData, { withCredentials: true })
+            console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)
@@ -24,7 +25,6 @@ export const categoryReducer = createSlice({
         errorMessage: '',
         loader: false,
         categorys: [],
-        totalCategory : 0
     },
     reducers: {
         messageClear: (state, _) => {
@@ -34,18 +34,16 @@ export const categoryReducer = createSlice({
     },
     extraReducers: (builder) => {
         builder
-
-        .addCase(categoryAdd.rejected, (state, { payload }) => {
-            state.loader = false;
-            state.errorMessage = payload.error
-          })
-    
           .addCase(categoryAdd.pending, (state, _) => {
             state.loader = true;
           })
-           
-    }
-
-})
+          
+          .addCase(categoryAdd.rejected, (state, { payload }) => {
+            state.loader = false;
+            state.errorMessage = payload.error ;
+          }) 
+          
+      }
+    });
 export const { messageClear } = categoryReducer.actions
 export default categoryReducer.reducer

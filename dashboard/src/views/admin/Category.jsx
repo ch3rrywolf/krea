@@ -40,7 +40,7 @@ const Category = () => {
       dispatch(categoryAdd(state))
     }
 
-    
+    // const loader = false;
   return (
     <div className='px-2 lg:px-7 pt-5'>
       <div className='flex lg:hidden justify-between items-center mb-5 p-4 bg-[#283046] rounded-md'>
@@ -57,7 +57,7 @@ const Category = () => {
                     <option value="15">15</option>
                     <option value="25">25</option>
                 </select>
-                <input value={state.name} onChange={(e)=>setState({...state, name : e.target.value})} className='px-4 py-2 focuse:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" placeholder='search' />
+                <input onChange={(e)=>setState({...state, name : e.target.value})} className='px-4 py-2 focuse:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" placeholder='search' />
             </div>
             <div className='relative overflow-x-auto'>
           <table className='w-full text-sm text-left text-[#d0d2d6]'>
@@ -108,7 +108,16 @@ const Category = () => {
                         <form onSubmit={add_category}>
                     <div className='flex flex-col w-full gap-1 mb-3'>
                         <label htmlFor="name">Category name</label>
-                        <input className='px-4 py-2 focuse:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" id='name' name='category_name' placeholder='category name' required />
+                        <input
+  value={state.name}
+  onChange={(e) => setState({ ...state, name: e.target.value })}
+  className='px-4 py-2 focus:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]'
+  type="text"
+  id='name'
+  name='category_name'
+  placeholder='category name'
+  required
+/>
                     </div>
                     <div>
                         <label className='flex justify-center items-center flex-col h-[238px] cursor-pointer border border-dashed hover:border-indigo-500 w-full border-[#d0d2d6]' htmlFor='image'>
