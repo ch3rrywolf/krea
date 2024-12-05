@@ -59,6 +59,32 @@ class productController {
             }
         });
     };
+    product_get = async (req, res) => {
+        const { page, searchValue, parPage } = req.query
+        const {id} = req;
+
+        const skipPage = parseInt(parPage) * (parseInt(page) - 1);
+
+        try {
+            if (searchValue) {
+                const products = await productModel.find({
+                    $text: { $search: searchValue },
+                    archiId : id
+                }).skip(skipPage).limit(parPage).sort({ createdAt: -1 })
+                const totalProduct = await productModel.find({
+                    $text: { $search: searchValue },
+                    archiId : id
+                }).countDocuments()
+                responseReturn(res, 200, { totalProduct, products })
+            }else {
+                const products = await productModel.find({archiId : id}).skip(skipPage).limit(parPage).sort({ createdAt: -1 })
+                const totalProduct = await productModel.find({archiId : id}).countDocuments()
+                responseReturn(res, 200, { totalProduct, products })
+            }
+        } catch (error) {
+
+        }
+    }
 }
 
 module.exports = new productController();

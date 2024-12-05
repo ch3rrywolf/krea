@@ -185,7 +185,7 @@ const AddProduct = () => {
                     <div className='flex flex-col mb-3 md:flex-row gap-4 w-full text-[#d0d2d6]'>
                         <div className='flex flex-col w-full gap-1'>
                             <label htmlFor='price'>Price</label>
-                            <input className='px-4 py-1 focus:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]' onChange={inputHandle} value={state.price} type="number" placeholder='price' name='price' id="price" />
+                            <input min='0' className='px-4 py-1 focus:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]' onChange={inputHandle} value={state.price} type="number" placeholder='price' name='price' id="price" />
                         </div>
 
                         <div className='flex flex-col w-full gap-1'>
