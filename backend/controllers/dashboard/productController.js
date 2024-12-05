@@ -39,7 +39,7 @@ class productController {
                     allImageUrl.push(result.url);
                 }
 
-                const product = await productModel.create({
+                await productModel.create({
                     archiId: id,
                     name,
                     slug,
@@ -59,7 +59,7 @@ class productController {
             }
         });
     };
-    product_get = async (req, res) => {
+    products_get = async (req, res) => {
         const { page, searchValue, parPage } = req.query
         const {id} = req;
 
@@ -82,8 +82,25 @@ class productController {
                 responseReturn(res, 200, { totalProduct, products })
             }
         } catch (error) {
-
+            console.log(error.message)
         }
+    }
+
+
+    product_get = async (req, res) => {
+        const {productId} = req.params;
+        // console.log(productId)
+        try {
+            const product = await productModel.findById(productId)
+            responseReturn(res, 200, { product })
+        } catch (error) {
+            // responseReturn(res, 500, { message : error.message })
+            console.log(error.message)
+        }
+    }
+
+    product_update = async (req, res) => {
+        console.log(req.body)
     }
 }
 

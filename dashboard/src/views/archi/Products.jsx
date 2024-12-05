@@ -3,7 +3,7 @@ import { FaEdit, FaEye, FaTrash } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { GiKnightBanner } from 'react-icons/gi'
 import { useSelector, useDispatch } from 'react-redux'
-import { get_product } from '../../store/Reducers/productReducer'
+import { get_products } from '../../store/Reducers/productReducer'
 
 
 import Pagination from '../Pagination'
@@ -24,7 +24,7 @@ const Products = () => {
           page: parseInt(currentPage),
           searchValue
         }
-        dispatch(get_product(obj))
+        dispatch(get_products(obj))
        }, [searchValue, currentPage, parPage])
 
     return (
@@ -75,7 +75,7 @@ const Products = () => {
                                     </td>
                                     <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>
                                         <div className='flex justify-start items-center gap-4'>
-                                            <Link to={`/archi/dashboard/edit-product/12`} className='p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50'><FaEdit /></Link>
+                                            <Link to={`/archi/dashboard/edit-product/${d._id}`} className='p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50'><FaEdit /></Link>
                                             {/* <Link className='p-[6px] bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50'><FaEye /></Link> */}
                                             <button className='p-[6px] bg-red-500 rounded hover:shadow-lg hover:shadow-red-500/50'><FaTrash /></button>
                                             {/* <Link to={`/seller/dashboard/add-banner/${d._id}`} className='p-[6px] bg-cyan-500 rounded hover:shadow-lg hover:shadow-cyan-500/50'><GiKnightBanner /></Link> */}
