@@ -28,7 +28,7 @@ const AddProduct = () => {
     const inputHandle = (e)=>{
         setState({
             ...state,
-            [e.target.name] : e.target.vale
+            [e.target.name] : e.target.value
         })
     }
 
@@ -95,9 +95,13 @@ const AddProduct = () => {
         formData.append('description',state.description)
         formData.append('price',state.price)
         formData.append('stock',state.stock)
+        formData.append('category',state.stock)
         formData.append('discount',state.discount)
+        formData.append('shopName','wolfShop')
         formData.append('brand',state.brand)
-        formData.append('images',images)
+        for (let i = 0; i < images.length; i++) {
+            formData.append('images', images[i])
+        }
         dispatch(add_product(formData))
     }
   return (
