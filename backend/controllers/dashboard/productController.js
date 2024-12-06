@@ -101,7 +101,6 @@ class productController {
 
     product_update = async (req, res) => {
         let { name, description, discount, price, brand, productId, stock } = req.body;
-        console.log(req.body)
         name = name.trim()
         const slug = name.split(' ').join('-')
         try {
@@ -113,6 +112,15 @@ class productController {
         } catch (error) {
             responseReturn(res, 500, { error: error.message })
         }
+    }
+
+    product_image_update = async (req, res) => {
+        const form = new formidable.IncomingForm({ multiples: true });
+
+        form.parse(req, (err, field, files) => {
+            console.log(files)
+            console.log(field)
+        })
     }
 }
 

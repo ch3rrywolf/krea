@@ -4,7 +4,7 @@ import {BsImages} from 'react-icons/bs'
 import {IoCloseSharp} from 'react-icons/io5'
 import { get_category } from '../../store/Reducers/categoryReducer'
 import { useSelector, useDispatch} from 'react-redux'
-import { get_product, messageClear, update_product } from '../../store/Reducers/productReducer'
+import { get_product, messageClear, update_product, product_image_update } from '../../store/Reducers/productReducer'
 import { PropagateLoader } from 'react-spinners'
 import { overrideStyle } from '../../utils/utils'
 import toast from 'react-hot-toast'
@@ -81,14 +81,17 @@ const EditProduct = () => {
         }
     }
 
-    const [images, setImages] = useState([])
+    // const [images, setImages] = useState([])
     const [imageShow, setImageShow] = useState([])
     
 
     const changeImage = (img, files)=>{
        if (files.length > 0) {
-        console.log(img)
-        console.log(files[0])
+        dispatch(product_image_update({
+            oldImage : img,
+            newImage : files[0],
+            productId
+        }))
        }
     }
 
