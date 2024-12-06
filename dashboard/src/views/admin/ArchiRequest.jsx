@@ -41,14 +41,14 @@ const ArchiRequest = () => {
             </thead>
             <tbody className='text-sm font-normal'>
               {
-                [1, 2, 3, 4, 5].map((d, i) => <tr className='border-b border-slate-700' key={i}>
-                <td scope='row' className='py-2 px-4 font-normal whitespace-nowrap'>{d}</td>
-                <td scope='row' className='py-2 px-4 font-normal whitespace-nowrap'><span>Zellit Mootez</span></td>
-                <td scope='row' className='py-2 px-4 font-normal whitespace-nowrap'><span>elwolf@gmail.com</span></td>
-                <td scope='row' className='py-2 px-4 font-normal whitespace-nowrap'><span>inactive</span></td>
-                <td scope='row' className='py-2 px-4 font-normal whitespace-nowrap'><span>pending</span></td>
+                archis.map((d, i) => <tr className='border-b border-slate-700' key={i}>
+                <td scope='row' className='py-2 px-4 font-normal whitespace-nowrap'>{i + 1}</td>
+                <td scope='row' className='py-2 px-4 font-normal whitespace-nowrap'><span>{d.name}</span></td>
+                <td scope='row' className='py-2 px-4 font-normal whitespace-nowrap'><span>{d.email}</span></td>
+                <td scope='row' className='py-2 px-4 font-normal whitespace-nowrap'><span>{d.payment}</span></td>
+                <td scope='row' className='py-2 px-4 font-normal whitespace-nowrap'><span>{d.status}</span></td>
                 <td scope='row' className='py-2 px-4 font-normal whitespace-nowrap'><div className='flex justify-start items-center gap-4'>
-                <Link className='p-[6px] bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50'><FaEye/></Link>
+                <Link to={`/admin/dashboard/archi/details/${d._id}`} className='p-[6px] bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50'><FaEye/></Link>
                 
                 </div></td>
               </tr>)
@@ -56,15 +56,17 @@ const ArchiRequest = () => {
             </tbody>
           </table>
         </div>
-        <div className='w-full flex justify-end mt-4 bottom-4 right-4'>
-            <Pagination
-                pageNumber = {currentPage}
-                setPageNumber = {setCurrentPage}
-                totalItem = {50}
-                parPage = {parPage}
-                showItem = {4} 
-            />
-            </div>
+        {
+          totalArchi <= parPage ? "" : <div className='w-full flex justify-end mt-4 bottom-4 right-4'>
+          <Pagination
+              pageNumber = {currentPage}
+              setPageNumber = {setCurrentPage}
+              totalItem = {50}
+              parPage = {parPage}
+              showItem = {4} 
+          />
+          </div>
+        }
         </div>
     </div>
   )

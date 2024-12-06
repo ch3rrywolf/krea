@@ -36,7 +36,12 @@ export const archiReducer = createSlice({
     },
     extraReducers: (builder) => {
         
-          
+        builder
+        
+        .addCase(get_archi_request.fulfilled, (state, { payload }) => {
+          state.archis = payload.archis
+          state.totalArchi = payload.totalArchi
+        })
          
       }
     });

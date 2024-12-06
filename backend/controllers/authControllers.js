@@ -79,7 +79,7 @@ class authControllers {
             await archiProModel.create({ myId: archi._id });
             const token = await createToken({ id: archi._id, role: archi.role })
             res.cookie('accessToken', token, {
-                expires: new Date(Date.nom() + 7 * 24 * 60 * 60 * 1000)
+                expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
             })
             return responseReturn(res, 201, {token, message: 'Register success' });
         } catch (error) {
