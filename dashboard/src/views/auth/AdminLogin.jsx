@@ -47,8 +47,8 @@ const AdminLogin = () => {
         <div className='w-[350px] text-[#d0d2d6] p-2'>
             <div className='bg-[#283046] p-4 rounded-md'>
                 <div className="h-[70px] flex justify-center items-center">
-                    <div className="w-[180px] h-[50px]">
-                        <img className="w-full h-full" src="http://localhost:3000/images/logo_myloc_hori.png" alt="image" />
+                    <div className="w-[170px] h-[65px]">
+                        <img className="w-full h-full" src="http://localhost:3000/images/logovkrea.png" alt="image" />
                     </div>
                 </div>
                     <form onSubmit={submit}>
