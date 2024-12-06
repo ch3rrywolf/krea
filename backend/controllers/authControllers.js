@@ -150,7 +150,24 @@ class authControllers {
     };
       
     profile_info_add = async (req, res) => {
-        console.log(req.body)
+        // console.log(req.body)
+        const { division, district, shopName, sub_district } = req.body;
+        const { id } = req;
+
+        try {
+            await archiModel.findByIdAndUpdate(id, {
+                shopInfo : {
+                    shopName,
+                    division,
+                    district,
+                    sub_district                                        
+                }
+            })
+            const userInfo = await archiModel.findById(id);
+                    return responseReturn(res, 201, { message: 'Profile info add success', userInfo });
+        } catch (error) {
+            responseReturn(res, 500, { error: 'Internal server error' })
+        }
     }
 }
 
