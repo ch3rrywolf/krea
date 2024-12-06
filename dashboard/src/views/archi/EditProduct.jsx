@@ -57,7 +57,7 @@ const EditProduct = () => {
     const inputHandle = (e)=>{
         setState({
             ...state,
-            [e.target.name] : e.target.vale
+            [e.target.name] : e.target.value
         })
     }
 
@@ -120,22 +120,23 @@ const EditProduct = () => {
         if (successMessage) {
           toast.error(successMessage)
           dispatch(messageClear())
-          setState({
-            name : "",
-        description : "",
-        discount : "",
-        price : "",
-        brand : "",
-        stock : "",
-          })
-          setCategory('')
+          
         }
       }, [successMessage, errorMessage])
 
       const update = (e) => {
         e.preventDefault()
-        state.productId = productId
-        dispatch(update_product(state))
+        const obj = {
+            name : state.name,
+            description : state.description,
+            discount : state.discount,
+            price : state.price,
+            brand : state.brand,
+            stock : state.stock,
+            productId : productId
+        }
+        console.log(obj)
+        dispatch(update_product(obj))
       }
   return (
     <div className='px-2 lg:px-7 pt-5'>
