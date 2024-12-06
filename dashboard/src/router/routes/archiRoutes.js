@@ -72,7 +72,8 @@ export const archiRouters = [
     {
         path : '/archi/dashboard/payments',
         element : <Payments />,
-        ability : ['archi']
+        role : 'archi',
+        status : 'active'
     },
     {
         path: '/archi/dashboard/chat-support',

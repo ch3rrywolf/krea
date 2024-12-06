@@ -1,26 +1,31 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { FaEye } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import Pagination from '../Pagination'
+import Search from '../components/Search'
+import { useSelector, useDispatch } from 'react-redux'
+import { get_archi_request } from '../../store/Reducers/archiReducer'
+
 
 const ArchiRequest = () => {
+    const dispatch = useDispatch()
+    const { archis, totalArchi } = useSelector(state=>state.archi)
     const [currentPage, setCurrentPage] = useState(1)
     const [searchValue, setSearchValue] = useState('')
     const [parPage, setParPage] = useState(5)
     const [show, setShow] = useState(false)
+
+    useEffect(()=> {
+      dispatch(get_archi_request({
+        parPage,
+        searchValue,
+        page: currentPage
+      }))
+    }, [parPage,searchValue,currentPage])
   return (
     <div className='px-2 lg:px-7 pt-5'>
         <div className='w-full p-4 bg-[#283046] rounded-md'>
-        <div className='flex justify-between items-center'>
-                <select onChange={(e) => setParPage(parseInt(e.target.value))}
-                    className='px-4 py-2 focuse:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]'>
-                    <option value="5">5</option>
-                    <option value="15">15</option>
-                    <option value="25">25</option>
-                </select>
-                <input className='px-4 py-2 focuse:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" placeholder='search' />
-            </div>
-
+        <Search setParPage={setParPage} setSearchValue={setSearchValue} searchValue={searchValue} />
             <div className='relative overflow-x-auto'>
           <table className='w-full text-sm text-left text-[#d0d2d6]'>
             <thead className='text-xs text-[#d0d2d6] uppercase boorder-b border-slate-700'>

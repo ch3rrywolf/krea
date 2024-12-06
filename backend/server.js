@@ -13,6 +13,7 @@ app.use(cors({
 app.use(bodyParser.json())
 app.use(cookiesParser())
 app.use('/api', require('./routes/authRoutes'))
+app.use('/api', require('./routes/dashboard/archiRoutes'))
 app.use('/api', require('./routes/dashboard/categoryRoutes'))
 app.use('/api', require('./routes/dashboard/productRoutes'))
 app.get('/', (req, res) => res.send('Hello World!'))
