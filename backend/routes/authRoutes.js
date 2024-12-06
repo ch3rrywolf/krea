@@ -5,5 +5,6 @@ router.post('/admin-login', authControllers.admin_login)
 router.post('/archi-login', authControllers.archi_login)
 router.post('/archi-register', authControllers.archi_register)
 router.get('/get-user', authMiddleware, authControllers.getUser)
+router.post('/profile-image-upload', authMiddleware, authControllers.profile_image_upload)
 
 module.exports = router

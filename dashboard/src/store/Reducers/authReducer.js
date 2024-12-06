@@ -46,6 +46,20 @@ export const archi_register = createAsyncThunk(
 )
 
 
+export const profile_image_upload = createAsyncThunk(
+  'auth/profile_image_upload',
+  async (image, { rejectWithValue, fulfillWithValue }) => {
+      try {
+          const { data } = await api.post('/profile-image-upload', image, { withCredentials: true })
+          return fulfillWithValue(data);
+      } catch (error) {
+          console.error("Error during archi_register:", error);
+          return rejectWithValue(error.response?.data || { error: 'Unknown error occurred' });
+      }
+  }
+)
+
+
 export const get_user_info = createAsyncThunk(
   'auth/get_user_info',
   async (_, { rejectWithValue, fulfillWithValue }) => {

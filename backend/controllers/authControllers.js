@@ -102,6 +102,10 @@ class authControllers {
             responseReturn(res, 500, { error: 'Internal server error' })
         }
     }
+
+    profile_image_upload = async (req, res) => {
+        console.log('res')
+    }
 }
 
 module.exports = new authControllers()
