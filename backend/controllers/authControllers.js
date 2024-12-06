@@ -2,7 +2,8 @@ const adminModel = require('../models/adminModel')
 const archiModel = require('../models/archiModel')
 const archiProModel = require('../models/archiProModel')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+const formidable = require('formidable');
+const cloudinary = require('cloudinary').v2;
 const { responseReturn } = require('../utiles/response')
 const { createToken } = require('../utiles/tokenCreate')
 class authControllers {
@@ -104,8 +105,51 @@ class authControllers {
     }
 
     profile_image_upload = async (req, res) => {
-        console.log('res')
-    }
+        const { id } = req;
+        const form = new formidable.IncomingForm({ multiples: false });
+        console.log('Formidable Config:', form.options);
+    
+        form.parse(req, async (err, fields, files) => {
+            if (err) {
+                console.error('Formidable Error:', err);
+                return responseReturn(res, 400, { error: 'Error parsing the form' });
+            }
+    
+            console.log('Parsed Fields:', fields);
+            console.log('Parsed Files:', files);
+    
+            const uploadedImage = files.image && files.image[0];
+            if (!uploadedImage || !uploadedImage.filepath) {
+                console.error('Image Filepath:', uploadedImage?.filepath);
+                return responseReturn(res, 400, { error: 'Missing required parameter - file' });
+            }
+    
+            const imagePath = uploadedImage.filepath;
+    
+            cloudinary.config({
+                cloud_name: process.env.cloud_name,
+                api_key: process.env.api_key,
+                api_secret: process.env.api_secret,
+                secure: true,
+            });
+    
+            try {
+                const result = await cloudinary.uploader.upload(imagePath, { folder: 'profile' });
+                if (result) {
+                    await archiModel.findByIdAndUpdate(id, { image: result.url });
+                    const userInfo = await archiModel.findById(id);
+                    return responseReturn(res, 201, { message: 'Image upload success', userInfo });
+                } else {
+                    return responseReturn(res, 500, { error: 'Image upload failed' });
+                }
+            } catch (error) {
+                console.error('Cloudinary Upload Error:', error);
+                return responseReturn(res, 500, { error: error.message });
+            }
+        });
+    };
+      
+      
 }
 
 module.exports = new authControllers()

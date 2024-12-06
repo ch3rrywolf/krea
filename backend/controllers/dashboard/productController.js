@@ -137,7 +137,7 @@ class productController {
                     secure: true,
                 });
     
-                const result = await cloudinary.uploader.upload(newImage[0].filepath, { folder: 'products' });  // Ensure file path is correct
+                const result = await cloudinary.uploader.upload(newImage.filepath, { folder: 'products' });  // Ensure file path is correct
                 if (result) {
                     let { images } = await productModel.findById(productId);
                     const index = images.findIndex(img => img === oldImage);
