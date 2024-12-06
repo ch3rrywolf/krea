@@ -85,14 +85,15 @@ const EditProduct = () => {
     const [imageShow, setImageShow] = useState([])
     
 
-    const changeImage = (img, files)=>{
-       if (files.length > 0) {
-        dispatch(product_image_update({
-            oldImage : img,
-            newImage : files[0],
-            productId
-        }))
-       }
+    const changeImage = (img, files) => {
+        console.log(files);  // Check if the file is being passed correctly
+        if (files.length > 0) {
+            dispatch(product_image_update({
+                oldImage: img,
+                newImage: files[0],
+                productId
+            }))
+        }
     }
 
     useEffect(() => {

@@ -116,12 +116,49 @@ class productController {
 
     product_image_update = async (req, res) => {
         const form = new formidable.IncomingForm({ multiples: true });
-
-        form.parse(req, (err, field, files) => {
-            console.log(files)
-            console.log(field)
-        })
-    }
+    
+        form.parse(req, async (err, field, files) => {
+            if (err) {
+                return responseReturn(res, 404, { error: err.message });
+            }
+    
+            const { productId, oldImage } = field;
+            const { newImage } = files;
+    
+            if (!newImage) {
+                return responseReturn(res, 400, { error: 'Missing required parameter - file' });
+            }
+    
+            try {
+                cloudinary.config({
+                    cloud_name: process.env.cloud_name,
+                    api_key: process.env.api_key,
+                    api_secret: process.env.api_secret,
+                    secure: true,
+                });
+    
+                const result = await cloudinary.uploader.upload(newImage[0].filepath, { folder: 'products' });  // Ensure file path is correct
+                if (result) {
+                    let { images } = await productModel.findById(productId);
+                    const index = images.findIndex(img => img === oldImage);
+                    images[index] = result.url;
+    
+                    await productModel.findByIdAndUpdate(productId, {
+                        images,
+                    });
+    
+                    const product = await productModel.findById(productId);
+                    responseReturn(res, 200, { product, message: 'Product image update success' });
+                } else {
+                    responseReturn(res, 404, { error: 'Image upload failed' });
+                }
+            } catch (error) {
+                responseReturn(res, 500, { error: error.message });
+            }
+        });
+    };
+    
+    
 }
 
 module.exports = new productController();

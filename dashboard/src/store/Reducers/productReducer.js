@@ -41,17 +41,24 @@ export const product_image_update = createAsyncThunk(
     'product/product_image_update',
     async ({ oldImage, newImage, productId }, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const formData = new FormData()
-            formData.append('oldImage', oldImage)
-            formData.append('newImage', newImage)
-            formData.append('productId', productId)
-            const { data } = await api.post('/product-image-update', formData, { withCredentials: true })
-            return fulfillWithValue(data)
+            const formData = new FormData();
+formData.append('oldImage', oldImage);
+formData.append('newImage', newImage); 
+formData.append('productId', productId);
+
+const { data } = await api.post('/product-image-update', formData, { 
+    withCredentials: true, 
+    headers: {
+        'Content-Type': 'multipart/form-data',
+    }
+});
+ return fulfillWithValue(data);
         } catch (error) {
-            return rejectWithValue(error.response?.data || { error: 'Something went wrong' })
+            return rejectWithValue(error.response?.data || { error: 'Something went wrong' });
         }
     }
-)
+);
+
 
 export const get_products = createAsyncThunk(
     'product/get_products',
@@ -137,11 +144,10 @@ export const productReducer = createSlice({
             state.product = payload.product
             state.successMessage = payload.message
           })
-        //   .addCase(update_product.fulfilled, (state, { payload }) => {
-        //     state.loader = false
-        //     state.product = payload.product
-        //     state.successMessage = payload.message
-        //   }) 
+          .addCase(product_image_update.fulfilled, (state, { payload }) => {
+            state.product = payload.product
+            state.successMessage = payload.message
+          }) 
           
       }
     });
