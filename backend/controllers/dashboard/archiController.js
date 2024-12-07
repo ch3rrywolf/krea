@@ -17,6 +17,10 @@ class archiController {
 
        }
     }
+
+    get_archi = async(req, res) => {
+        console.log(req.params)
+    }
 }
 
 module.exports = new archiController()

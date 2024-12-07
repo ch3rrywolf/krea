@@ -16,6 +16,20 @@ export const get_archi_request = createAsyncThunk(
     }
 )
 
+export const get_archi = createAsyncThunk(
+    'archi/get_archi',
+    async ({ archiId }, { rejectWithValue, fulfillWithValue }) => {
+        try {
+
+            const { data } = await api.get(`/get-archi/${archiId}`, { withCredentials: true })
+            console.log(data)
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response?.data || { error: 'Something went wrong' })
+        }
+    }
+)
+
 
 
 
@@ -27,6 +41,7 @@ export const archiReducer = createSlice({
         loader: false,
         archis : [],
         totalArchi : 0,
+        archi: ''
     },
     reducers: {
         messageClear: (state, _) => {

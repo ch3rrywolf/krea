@@ -1,6 +1,16 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import {useParams} from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { get_archi } from '../../store/Reducers/archiReducer'
 
 const ArchiDetails = () => {
+    const dispatch = useDispatch()
+    const { archi } = useSelector(state=>state.archi)
+    const { archiId } = useParams()
+    console.log('archiId:', archiId);
+    useEffect(()=> {
+        dispatch(get_archi({ archiId }));
+      }, [archiId])
   return (
     <div>
         <div className='px-2 lg:px-7 pt-5'>
