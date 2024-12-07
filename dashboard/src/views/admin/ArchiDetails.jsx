@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react'
+import React, {useEffect,useState} from 'react'
 import {useParams} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { get_archi } from '../../store/Reducers/archiReducer'
+import { get_archi, archi_status_update } from '../../store/Reducers/archiReducer'
 
 const ArchiDetails = () => {
     const dispatch = useDispatch()
@@ -11,6 +11,17 @@ const ArchiDetails = () => {
     useEffect(()=> {
         dispatch(get_archi({ archiId }));
       }, [archiId])
+
+    const [status, setState] = useState('')
+    const submit = (e) => {
+        e.preventDefault()
+        dispatch(archi_status_update({
+            archiId,
+            status
+        }))
+    }
+
+
   return (
     <div>
         <div className='px-2 lg:px-7 pt-5'>
@@ -18,7 +29,10 @@ const ArchiDetails = () => {
                 <div className='w-full flex flex-wrap text-[#d0d2d6]'>
                     <div className='w-3/12 flex justify-center items-center py-3'>
                         <div>
-                            <img className='w-full h-[230px]' src="http://localhost:3000/images/admin.jpg" alt="" />
+                            {
+                                archi?.image ?     <img className='w-full h-[230px]' src="http://localhost:3000/images/admin.jpg" alt="" />
+                                : <span>Image not uploaded</span>
+                            }
                         </div>
                     </div>
                     <div className='w-4/12'>
@@ -29,23 +43,23 @@ const ArchiDetails = () => {
                             <div className='flex justify-between text-sm flex-col gap-2 p-4 bg-slate-800 rounded-md'>
                                 <div className='flex gap-2'>
                                     <span>Name: </span>
-                                    <span>Zellit Mootez</span>
+                                    <span>{archi?.name}</span>
                                 </div>
                                 <div className='flex gap-2'>
                                     <span>Email: </span>
-                                    <span>zellitmootez96@gmail.com</span>
+                                    <span>{archi?.email}</span>
                                 </div>
                                 <div className='flex gap-2'>
                                     <span>Role: </span>
-                                    <span>Archi</span>
+                                    <span>{archi?.role}</span>
                                 </div>
                                 <div className='flex gap-2'>
                                     <span>Status: </span>
-                                    <span>Pending</span>
+                                    <span>{archi?.status}</span>
                                 </div>
                                 <div className='flex gap-2'>
                                     <span>Payment Account: </span>
-                                    <span>active</span>
+                                    <span>{archi?.payment}</span>
                                 </div>
                             </div>
                         </div>
@@ -59,28 +73,28 @@ const ArchiDetails = () => {
                             <div className='flex justify-between text-sm flex-col gap-2 p-4 bg-slate-800 rounded-md'>
                                 <div className='flex gap-2'>
                                     <span>Shop Name: </span>
-                                    <span>deco-home</span>
+                                    <span>{archi?.shopInfo?.shopName}</span>
                                 </div>
                                 <div className='flex gap-2'>
                                     <span>Division: </span>
-                                    <span>tunis</span>
+                                    <span>{archi?.shopInfo?.division}</span>
                                 </div>
                                 <div className='flex gap-2'>
                                     <span>District: </span>
-                                    <span>ariana</span>
+                                    <span>{archi?.shopInfo?.district}</span>
                                 </div>
                                 <div className='flex gap-2'>
                                     <span>Sub-District: </span>
-                                    <span>soukra</span>
+                                    <span>{archi?.shopInfo?.sub_district}</span>
                                 </div>
                             </div>
                         </div>
                     </div>                 
                 </div>
                 <div>
-                    <form>
+                    <form onSubmit={submit}>
                         <div className='flex gap-4 py-3'>
-                            <select className='px-4 py-2 focus:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]' name='' id=''>
+                            <select value={status} onChange={(e) => setState(e.target.value)} className='px-4 py-2 focus:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]' required name='' id=''>
                                 <option value="">--select status--</option>
                                 <option value="active">Active</option>
                                 <option value="deactive">Deactive</option>

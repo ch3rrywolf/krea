@@ -14,12 +14,24 @@ class archiController {
             responseReturn(res, 200, { totalArchi, archis})
         }
        } catch (error) {
-
+        responseReturn(res, 500, { error: error.message })
        }
     }
 
     get_archi = async(req, res) => {
-        console.log(req.params)
+        const { archiId } = req.params
+
+        try {
+            const archi = await archiModel.findById(archiId)
+            responseReturn(res, 200, {archi})
+        } catch (error) {
+            responseReturn(res, 500, {error : error.message})
+        }
+    }
+
+    archi_status_update = async(req, res) => {
+        const {archiId, archis} = req.body
+        console.log(req.body)
     }
 }
 

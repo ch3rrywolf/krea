@@ -30,6 +30,20 @@ export const get_archi = createAsyncThunk(
     }
 )
 
+export const archi_status_update = createAsyncThunk(
+    'archi/archi_status_update',
+    async (info, { rejectWithValue, fulfillWithValue }) => {
+        try {
+
+            const { data } = await api.post(`/archi-status-update`, info, { withCredentials: true })
+            console.log(data)
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response?.data || { error: 'Something went wrong' })
+        }
+    }
+)
+
 
 
 
@@ -57,6 +71,9 @@ export const archiReducer = createSlice({
           state.archis = payload.archis
           state.totalArchi = payload.totalArchi
         })
+        .addCase(get_archi.fulfilled, (state, { payload }) => {
+            state.archi = payload.archi
+          })
          
       }
     });
