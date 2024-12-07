@@ -1,18 +1,19 @@
 import React, {useEffect,useState} from 'react'
 import {useParams} from 'react-router-dom'
+import toast from 'react-hot-toast'
 import { useSelector, useDispatch } from 'react-redux'
-import { get_archi, archi_status_update } from '../../store/Reducers/archiReducer'
+import { get_archi, archi_status_update, messageClear } from '../../store/Reducers/archiReducer'
 
 const ArchiDetails = () => {
     const dispatch = useDispatch()
-    const { archi } = useSelector(state=>state.archi)
+    const { archi, successMessage } = useSelector(state=>state.archi)
     const { archiId } = useParams()
     console.log('archiId:', archiId);
     useEffect(()=> {
         dispatch(get_archi({ archiId }));
       }, [archiId])
 
-    const [status, setState] = useState('')
+    const [status, setStatus] = useState('')
     const submit = (e) => {
         e.preventDefault()
         dispatch(archi_status_update({
@@ -21,7 +22,18 @@ const ArchiDetails = () => {
         }))
     }
 
+    useEffect(()=>{
+        if(successMessage){
+            toast.success(successMessage)
+            dispatch(messageClear())
+        }
+    })
 
+    useEffect(()=>{
+        if(archi){
+            setStatus(archi.status)
+        }
+    }, [archi])
   return (
     <div>
         <div className='px-2 lg:px-7 pt-5'>
@@ -94,7 +106,7 @@ const ArchiDetails = () => {
                 <div>
                     <form onSubmit={submit}>
                         <div className='flex gap-4 py-3'>
-                            <select value={status} onChange={(e) => setState(e.target.value)} className='px-4 py-2 focus:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]' required name='' id=''>
+                            <select value={status} onChange={(e) => setStatus(e.target.value)} className='px-4 py-2 focus:border-indigo-500 outline-none bg-[#283046] border border-slate-700 rounded-md text-[#d0d2d6]' required name='' id=''>
                                 <option value="">--select status--</option>
                                 <option value="active">Active</option>
                                 <option value="deactive">Deactive</option>

@@ -30,8 +30,16 @@ class archiController {
     }
 
     archi_status_update = async(req, res) => {
-        const {archiId, archis} = req.body
-        console.log(req.body)
+        const {archiId, status} = req.body
+        try {
+            await archiModel.findByIdAndUpdate(archiId, {
+                status
+            })
+            const archi = await archiModel.findById(archiId)
+            responseReturn(res, 200, { archi, message: 'archi status update success' })
+        } catch (error) {
+            responseReturn(res, 500, { error: error.message})
+        }
     }
 }
 

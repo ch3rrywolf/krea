@@ -48,7 +48,7 @@ export const archi_status_update = createAsyncThunk(
 
 
 export const archiReducer = createSlice({
-    name: 'category',
+    name: 'archi',
     initialState: {
         successMessage: '',
         errorMessage: '',
@@ -73,6 +73,10 @@ export const archiReducer = createSlice({
         })
         .addCase(get_archi.fulfilled, (state, { payload }) => {
             state.archi = payload.archi
+          })
+          .addCase(archi_status_update.fulfilled, (state, { payload }) => {
+            state.archi = payload.archi
+            state.successMessage = payload.message
           })
          
       }
