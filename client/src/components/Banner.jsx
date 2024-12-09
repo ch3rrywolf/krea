@@ -40,7 +40,7 @@ const Banner = () => {
                                 responsive={responsive}
                             >
                                 {
-                                    [1, 2, 3, 4, 5, 6, 7].map((img, i) => <Link className='lg-md:h-[440px] h-auto w-full block' key={i} >
+                                    [1, 2, 3].map((img, i) => <Link className='lg-md:h-[440px] h-auto w-full block' key={i} >
                                         <img className='w-full h-full' src={`http://localhost:3001/images/banner/${img}.jpg`} alt="" />
                                     </Link>)
                                 }
