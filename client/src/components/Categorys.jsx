@@ -52,7 +52,7 @@ const Categorys = () => {
                 {
                     categorys.map((c, i) => <Link className='h-[185px] border block' key={i} >
                         <div className='w-full h-full relative p-3'>
-                            <img src={`http://localhost:3001/images/admin.jpg`} alt="" />
+                            <img src={`http://localhost:3001/images/products/${i + 1}.jpg`} alt="" />
                             <div className='absolute bottom-6 w-full mx-auto font-bold left-0 flex justify-center items-center'>
                                 <span className='py-[2px] px-6 bg-[#3330305d] text-white'>{c}</span>
                             </div>
